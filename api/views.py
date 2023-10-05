@@ -12,6 +12,10 @@ class ProductView(APIView):
         product_serializer = BaseProductSerializer(data=request.data)
         
         if product_serializer.is_valid():
+            ean = product_serializer.validated_data.get('ean')
+            if Product.objects.filter(ean=ean).exists():
+                return Response({'error': 'EAN já existe no banco de dados.'}, status=status.HTTP_400_BAD_REQUEST)
+
             product_serializer.save()
             return Response(product_serializer.data, status=status.HTTP_201_CREATED)
 
@@ -34,7 +38,6 @@ class ProductView(APIView):
         
     
     def put(self, request, product_id):
-        
         try:
             instance = Product.objects.get(id=product_id)
         
@@ -49,3 +52,13 @@ class ProductView(APIView):
 
         return Response(product_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
+        
+    def delete(self, request, product_id):
+        try:
+            product = Product.objects.get(id=product_id)
+        
+        except Product.DoesNotExist:
+            return Response({"detail": "Produto não encontrado."}, status=status.HTTP_404_NOT_FOUND)
+
+        product.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

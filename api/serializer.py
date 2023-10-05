@@ -15,8 +15,8 @@ class BaseProductSerializer(serializers.Serializer):
 
         if image_data:
             product.image = image_data
+            product.save()
 
-        product.save()
         return product
     
     

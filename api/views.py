@@ -2,9 +2,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from .serializer import BaseProductSerializer, ProductSerializer
+from .serializer import BaseProductSerializer, ProductSerializer, PriceVariationSerializer
 
-from PromoterApp.models import Product
+from PromoterApp.models import Product, PriceVariation
 
 
 class ProductView(APIView):
@@ -62,3 +62,20 @@ class ProductView(APIView):
 
         product.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class PriceVariation(APIView):
+    def post(self, request, product_id):
+        
+        try:
+            product_instance = Product.objects.get(id=product_id)
+        except Product.DoesNotExist:
+            return Response({'error': 'Produto não encontrado.'}, status=status.HTTP_404_NOT_FOUND)
+            
+        price_variation_serializer = PriceVariationSerializer(data=request.data)
+        
+        if price_variation_serializer.is_valid():
+            price_variation_serializer.create(product_instance, validated_data=request.data)
+            return Response(price_variation_serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(price_variation_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -1,6 +1,12 @@
 FROM ubuntu
 RUN addgroup --gid 1024 shared
 
+RUN apt-get update && apt-get install -y locales
+RUN locale-gen pt_BR.UTF-8
+ENV LANG pt_BR.UTF-8
+ENV LANGUAGE pt_BR:pt
+ENV LC_ALL pt_BR.UTF-8
+
 WORKDIR /home/app
 
 COPY . .

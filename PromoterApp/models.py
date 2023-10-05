@@ -17,7 +17,7 @@ class Product(models.Model):
         verbose_name_plural = u"Produtos"
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.ean}"
 
 
 class PriceVariation(models.Model):
@@ -30,5 +30,5 @@ class PriceVariation(models.Model):
         verbose_name_plural = u"Variações de preço"
 
     def __str__(self):
-        return f"{self.product.name - self.product.ean}"
+        return f"{self.product.name} - {self.product.ean}"
     

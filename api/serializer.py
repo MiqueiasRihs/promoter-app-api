@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from PromoterApp.models import Product
 
-class BaseProductSerializer(serializers.Serializer):
+class ProductSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=350)
     ean = serializers.CharField(max_length=13)
     min_price = serializers.FloatField()
@@ -33,7 +33,7 @@ class BaseProductSerializer(serializers.Serializer):
         return instance
     
 
-class ProductSerializer(BaseProductSerializer):
+class BaseProductSerializer(ProductSerializer):
     id = serializers.IntegerField()
 
     class Meta:

@@ -20,6 +20,18 @@ class ProductAdmin(admin.ModelAdmin):
     )
     
     list_filter = ('is_enabled',)
+    
+    change_form_template = 'admin/PromoterApp/product/change_form.html'
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        extra_context = extra_context or {}
+        
+        prices = PriceVariation.objects.filter(product_id=object_id)
+        extra_context['prices'] = [float(price.price) for price in prices]
+
+        return super().change_view(
+            request, object_id, form_url, extra_context=extra_context,
+        )
 
 
 class PriceVariationAdmin(admin.ModelAdmin):

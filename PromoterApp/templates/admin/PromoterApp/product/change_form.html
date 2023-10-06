@@ -1,0 +1,29 @@
+{% extends "admin/change_form.html" %}
+{% load static %}
+
+{% block extrahead %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block after_field_sets %}
+<div class="module">
+    <canvas id="myChart"></canvas>
+</div>
+
+{% for price in prices %}{{ price.price|floatformat }}{% endfor %}
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [{% for price in prices %}'{{ price.created_at|date:"d/m/Y H:i"}}',{% endfor %}],
+        datasets: [{
+            label: 'Variação de preço',
+            data: {{ prices }},
+            borderColor: 'rgb(65,105,225)',
+            tension: 0.3
+        }]
+    },
+});
+</script>
+{% endblock %}

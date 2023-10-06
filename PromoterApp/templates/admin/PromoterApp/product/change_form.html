@@ -5,24 +5,59 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
 
-{% block after_field_sets %}
-<div class="module">
-    <canvas id="myChart"></canvas>
-</div>
+{% block field_sets %}
+    <div class="module">
+        <canvas id="myChart" width="400" height="85"></canvas>
+    </div>
+    {% for fieldset in adminform %}
+        {% include "admin/includes/fieldset.html" %}
+    {% endfor %}
+{% endblock %}
 
-<script>
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: [{% for date in created_at %}'{{ date|date:"d/m/Y H:i"}}',{% endfor %}],
-        datasets: [{
-            label: 'Variação de preço',
-            data: {{ prices }},
-            borderColor: 'rgb(65,105,225)',
-            tension: 0.3
-        }]
-    },
-});
-</script>
+{% block after_field_sets %}
+    <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [{% for date in created_at %}'{{ date|date:"d/m/Y H:i"}}',{% endfor %}],
+            datasets: [{
+                label: 'Variação de preço',
+                data: {{ prices }},
+                backgroundColor: 'rgba(65,105,225,0.5)', 
+                borderColor: 'rgb(65,105,225)', 
+                borderWidth: 1, 
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'VARIAÇÃO DE PREÇO AO LONGO DO TEMPO', 
+                    fontSize: 16, 
+                },
+                legend: {
+                    display: false, 
+                },
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Período', 
+                    },
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Preço', 
+                    },
+                },
+            },
+        },
+    });
+    </script>
 {% endblock %}

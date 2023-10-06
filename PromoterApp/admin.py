@@ -26,7 +26,7 @@ class ProductAdmin(admin.ModelAdmin):
     def change_view(self, request, object_id, form_url='', extra_context=None):
         extra_context = extra_context or {}
         
-        prices = PriceVariation.objects.filter(product_id=object_id)
+        prices = PriceVariation.objects.filter(product_id=object_id).order_by('created_at')
         extra_context['created_at'] = [price.created_at for price in prices]
         extra_context['prices'] = [float(price.price) for price in prices]
 

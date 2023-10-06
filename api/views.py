@@ -41,9 +41,9 @@ class ProductView(APIView):
             return Response({"detail": "Produto não encontrado."}, status=status.HTTP_404_NOT_FOUND)
         
     
-    def put(self, request, product_id):
-        if not product_id:
-            return Response({"detail": "Precisa ser passado o ID do produto."}, status=status.HTTP_404_NOT_FOUND)
+    def put(self, request, product_id=None):
+        if product_id is None:
+            return Response({"detail": "O parâmetro 'product_id' é obrigatório."}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             instance = Product.objects.get(id=product_id)
@@ -60,18 +60,9 @@ class ProductView(APIView):
         return Response(product_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
     
-    # @swagger_auto_schema(manual_parameters=[openapi.Parameter(
-    #         name="product_id",
-    #         in_=openapi.IN_PATH,
-    #         type=openapi.TYPE_INTEGER,
-    #         description="ID do produto",
-    #         required=True,
-    #     ),],
-    #     responses={204: "No content"},
-    # )
-    def delete(self, request, product_id):
-        if not product_id:
-            return Response({"detail": "Precisa ser passado o ID do produto."}, status=status.HTTP_404_NOT_FOUND)
+    def delete(self, request, product_id=None):
+        if product_id is None:
+            return Response({"detail": "O parâmetro 'product_id' é obrigatório."}, status=status.HTTP_400_BAD_REQUEST)
             
         try:
             product = Product.objects.get(id=product_id)
@@ -85,9 +76,9 @@ class ProductView(APIView):
 
 class PriceVariation(APIView):
     @swagger_auto_schema(request_body=PriceVariationSerializer)
-    def post(self, request, product_id):
-        if not product_id:
-            return Response({"detail": "Precisa ser passado o ID do produto."}, status=status.HTTP_404_NOT_FOUND)
+    def post(self, request, product_id=None):
+        if product_id is None:
+            return Response({"detail": "O parâmetro 'product_id' é obrigatório."}, status=status.HTTP_400_BAD_REQUEST)
         
         try:
             product_instance = Product.objects.get(id=product_id)

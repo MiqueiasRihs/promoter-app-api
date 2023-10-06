@@ -2,12 +2,16 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
 from .serializer import BaseProductSerializer, ProductSerializer, PriceVariationSerializer
 
 from PromoterApp.models import Product, PriceVariation
 
 
 class ProductView(APIView):
+    @swagger_auto_schema(request_body=ProductSerializer)
     def post(self, request, *args, **kwargs):
         product_serializer = ProductSerializer(data=request.data)
         
@@ -38,6 +42,9 @@ class ProductView(APIView):
         
     
     def put(self, request, product_id):
+        if not product_id:
+            return Response({"detail": "Precisa ser passado o ID do produto."}, status=status.HTTP_404_NOT_FOUND)
+
         try:
             instance = Product.objects.get(id=product_id)
         
@@ -52,8 +59,20 @@ class ProductView(APIView):
 
         return Response(product_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
-        
+    
+    # @swagger_auto_schema(manual_parameters=[openapi.Parameter(
+    #         name="product_id",
+    #         in_=openapi.IN_PATH,
+    #         type=openapi.TYPE_INTEGER,
+    #         description="ID do produto",
+    #         required=True,
+    #     ),],
+    #     responses={204: "No content"},
+    # )
     def delete(self, request, product_id):
+        if not product_id:
+            return Response({"detail": "Precisa ser passado o ID do produto."}, status=status.HTTP_404_NOT_FOUND)
+            
         try:
             product = Product.objects.get(id=product_id)
         
@@ -65,7 +84,10 @@ class ProductView(APIView):
 
 
 class PriceVariation(APIView):
+    @swagger_auto_schema(request_body=PriceVariationSerializer)
     def post(self, request, product_id):
+        if not product_id:
+            return Response({"detail": "Precisa ser passado o ID do produto."}, status=status.HTTP_404_NOT_FOUND)
         
         try:
             product_instance = Product.objects.get(id=product_id)

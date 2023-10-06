@@ -42,6 +42,8 @@ class BaseProductSerializer(ProductSerializer):
 
 
 class PriceVariationSerializer(serializers.Serializer):
+    price = serializers.FloatField()
+    
     class Meta:
         model = PriceVariation
         fields = '__all__'

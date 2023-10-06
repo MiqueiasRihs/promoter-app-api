@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.core.exceptions import ValidationError
 
 from .models import Product, PriceVariation
 from .forms import PriceVariationForm
@@ -27,6 +26,7 @@ class ProductAdmin(admin.ModelAdmin):
         extra_context = extra_context or {}
         
         prices = PriceVariation.objects.filter(product_id=object_id).order_by('created_at')
+        extra_context['product_id'] = object_id
         extra_context['created_at'] = [price.created_at for price in prices]
         extra_context['prices'] = [float(price.price) for price in prices]
 
@@ -39,7 +39,9 @@ class PriceVariationAdmin(admin.ModelAdmin):
     form = PriceVariationForm
     list_display = ('product', 'price', 'created_at')
     autocomplete_fields = ['product',]
-
+    
+    change_list_template = 'admin/PromoterApp/pricevariation/change_form.html'
+    
 
 admin.site.register(PriceVariation, PriceVariationAdmin)
 admin.site.register(Product, ProductAdmin)

@@ -6,15 +6,41 @@
 {% endblock %}
 
 {% block field_sets %}
-    <div class="module">
-        <canvas id="myChart" width="400" height="85"></canvas>
-    </div>
+    {% if product_id %}
+        <ul class="custom-object-tools object-tools">
+            <li>
+                <a href="{% url 'price_variation_table' product_id %}" class="btn btn-high btn-success" style="background-color: rgb(25, 195, 125);">Exportar variação de preço</a>
+            </li>
+        </ul>
+
+        <div class="module">
+            <canvas id="myChart" width="400" height="85"></canvas>
+        </div>
+    {% endif %}
+    
     {% for fieldset in adminform %}
         {% include "admin/includes/fieldset.html" %}
     {% endfor %}
+
 {% endblock %}
 
 {% block after_field_sets %}
+    <style>
+
+        .custom-object-tools {
+            position: relative;
+            right: 100px;
+            
+        }
+
+        @media screen and (max-width: 768px) {
+            .custom-object-tools {
+            right: 26px;
+            }
+        }
+
+    </style>
+
     <script>
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
@@ -24,8 +50,8 @@
             datasets: [{
                 label: 'Variação de preço',
                 data: {{ prices }},
-                backgroundColor: 'rgba(65,105,225,0.5)', 
-                borderColor: 'rgb(65,105,225)', 
+                backgroundColor: 'rgb(25, 195, 125)', 
+                borderColor: 'rgb(25, 195, 125)', 
                 borderWidth: 1, 
             }]
         },

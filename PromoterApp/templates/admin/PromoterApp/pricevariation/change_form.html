@@ -1,0 +1,26 @@
+{% extends "admin/change_list.html" %}
+
+{% block result_list %}
+    <style>
+
+        .custom-object-tools {
+            position: relative;
+            right: 225px;
+            
+        }
+
+        @media screen and (max-width: 768px) {
+            .custom-object-tools {
+              right: 26px;
+            }
+        }
+
+    </style>
+
+    <ul class="custom-object-tools object-tools">
+        <li>
+            <a href="{% url 'price_variation_table' %}" class="btn btn-high btn-success" style="background-color: rgb(25, 195, 125);">Exportar tabela</a>
+        </li>
+    </ul>
+    {{ block.super }}
+{% endblock %}

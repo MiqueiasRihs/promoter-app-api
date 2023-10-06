@@ -10,13 +10,12 @@
     <canvas id="myChart"></canvas>
 </div>
 
-{% for price in prices %}{{ price.price|floatformat }}{% endfor %}
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: [{% for price in prices %}'{{ price.created_at|date:"d/m/Y H:i"}}',{% endfor %}],
+        labels: [{% for date in created_at %}'{{ date|date:"d/m/Y H:i"}}',{% endfor %}],
         datasets: [{
             label: 'Variação de preço',
             data: {{ prices }},

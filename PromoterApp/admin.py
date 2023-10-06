@@ -27,6 +27,7 @@ class ProductAdmin(admin.ModelAdmin):
         extra_context = extra_context or {}
         
         prices = PriceVariation.objects.filter(product_id=object_id)
+        extra_context['created_at'] = [price.created_at for price in prices]
         extra_context['prices'] = [float(price.price) for price in prices]
 
         return super().change_view(

@@ -40,7 +40,7 @@ class PriceVariationAdmin(admin.ModelAdmin):
     list_display = ('product', 'price', 'created_at')
     autocomplete_fields = ['product',]
     
-    change_list_template = 'admin/PromoterApp/pricevariation/change_form.html'
+    change_list_template = 'admin/PromoterApp/pricevariation/change_list.html'
     
 
 admin.site.register(PriceVariation, PriceVariationAdmin)

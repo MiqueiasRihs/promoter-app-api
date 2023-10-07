@@ -7,7 +7,7 @@ from .forms import PriceVariationForm
 class ProductAdmin(admin.ModelAdmin):
     search_fields = ('name', 'ean',)
     readonly_fields = ['created_at', 'image_tag']
-    list_display = ('name', 'ean', 'min_price', 'max_price', 'image', 'created_at', 'is_enabled',)
+    list_display = ('name', 'ean', 'min_price', 'max_price', 'image', 'created_at',)
     
     fieldsets = (
         ('Informações Básicas', {

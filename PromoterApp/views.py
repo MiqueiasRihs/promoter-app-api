@@ -29,7 +29,7 @@ def price_variation_table(request, product_id=None):
             each_variation.product.name,
             each_variation.product.ean,
             each_variation.price,
-            each_variation.created_at.strftime('%d/%m/%Y')
+            each_variation.created_at.strftime('%d/%m/%Y %H:%M')
         ])
 
     wb.save(response)

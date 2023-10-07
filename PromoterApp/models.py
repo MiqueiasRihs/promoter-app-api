@@ -16,7 +16,7 @@ class Product(models.Model):
     def image_tag(self):
         return mark_safe('<img src="/media/%s" height="150" />' % (self.image))
 
-    image_tag.short_description = 'Image'
+    image_tag.short_description = 'Imagem'
 
     class Meta:
         verbose_name = u"Produto"

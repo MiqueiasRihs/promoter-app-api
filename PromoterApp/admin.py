@@ -5,13 +5,13 @@ from .forms import PriceVariationForm
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'ean', 'min_price', 'max_price', 'created_at', 'is_enabled',)
     search_fields = ('name', 'ean',)
-    readonly_fields = ['created_at']
+    readonly_fields = ['created_at', 'image_tag']
+    list_display = ('name', 'ean', 'min_price', 'max_price', 'image', 'created_at', 'is_enabled',)
     
     fieldsets = (
         ('Informações Básicas', {
-            'fields': ('name', 'ean', 'min_price', 'max_price', 'created_at')
+            'fields': ('name', 'ean', 'min_price', 'max_price', 'image_tag', 'created_at')
         }),
         ('Situação', {
             'fields': ('is_enabled',)
@@ -25,10 +25,15 @@ class ProductAdmin(admin.ModelAdmin):
     def change_view(self, request, object_id, form_url='', extra_context=None):
         extra_context = extra_context or {}
         
-        prices = PriceVariation.objects.filter(product_id=object_id).order_by('created_at')
-        extra_context['product_id'] = object_id
-        extra_context['created_at'] = [price.created_at for price in prices]
-        extra_context['prices'] = [float(price.price) for price in prices]
+        product = Product.objects.get(pk=object_id)
+        prices_variation = PriceVariation.objects.filter(product_id=object_id).order_by('created_at')
+
+        extra_context = {
+            'product_id': object_id,
+            'created_at': [price.created_at for price in prices_variation],
+            'prices': [float(price.price) for price in prices_variation],
+            'image': product.image.name
+        }
 
         return super().change_view(
             request, object_id, form_url, extra_context=extra_context,

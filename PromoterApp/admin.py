@@ -11,7 +11,7 @@ class ProductAdmin(admin.ModelAdmin):
     
     fieldsets = (
         ('Informações Básicas', {
-            'fields': ('name', 'ean', 'min_price', 'max_price', 'image_tag', 'created_at')
+            'fields': ('name', 'ean', 'min_price', 'max_price', 'image_tag', 'image', 'created_at')
         }),
     )
     

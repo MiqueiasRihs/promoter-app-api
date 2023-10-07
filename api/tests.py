@@ -1,12 +1,16 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.core.files.uploadedfile import SimpleUploadedFile
+
+import tempfile
 
 from rest_framework import status
 from rest_framework.test import APIClient
 
 from PromoterApp.models import Product, PriceVariation
 
+MEDIA_ROOT = tempfile.mkdtemp()
 
+@override_settings(MEDIA_ROOT=MEDIA_ROOT)
 class ProductAPITestCase(TestCase):
     
     def setUp(self):
@@ -44,6 +48,17 @@ class ProductAPITestCase(TestCase):
         response = self.client.post('/api/products/', self.product_data, format="multipart")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Product.objects.count(), 2)
+        
+    
+    def test_create_product_without_ean(self):
+        response = self.client.post('/api/products/', format="multipart", data={
+            "name": "Produto Teste",
+            "min_price": 13.0,
+            "max_price": 18.0,
+        })
+        
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.json(), {'ean': ['Este campo é obrigatório.']})
         
         
     def test_create_already_created_product(self):

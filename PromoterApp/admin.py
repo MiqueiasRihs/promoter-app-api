@@ -13,12 +13,7 @@ class ProductAdmin(admin.ModelAdmin):
         ('Informações Básicas', {
             'fields': ('name', 'ean', 'min_price', 'max_price', 'image_tag', 'created_at')
         }),
-        ('Situação', {
-            'fields': ('is_enabled',)
-        }),
     )
-    
-    list_filter = ('is_enabled',)
     
     change_form_template = 'admin/PromoterApp/product/change_form.html'
 

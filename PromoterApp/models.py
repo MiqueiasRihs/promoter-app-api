@@ -11,7 +11,6 @@ class Product(models.Model):
     min_price = models.DecimalField(verbose_name=u'Preço mínimo', decimal_places=2, max_digits=8, default=0.0, blank=True, null=True)
     max_price = models.DecimalField(verbose_name=u'Preço máximo', decimal_places=2, max_digits=8, default=0.0, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Criado em')
-    is_enabled = models.BooleanField(default=True, verbose_name='Está habilitado?')
 
     def image_tag(self):
         return mark_safe('<img src="/media/%s" height="150" />' % (self.image))

@@ -3,3 +3,4 @@ PromoterApp/__pycache__/
 api/__pycache__/
 PromoterApp/migrations/__pycache__
 api/migrations/__pycache__/
+PromoterApp/management/commands/__pycache__/

@@ -35,7 +35,8 @@ Siga estas etapas para configurar e executar o projeto:
    docker-compose up
    ```
 
-   Isso irá iniciar a aplicação Django e o banco de dados PostgreSQL.
+   Isso irá iniciar a aplicação Django e o banco de dados PostgreSQL.  
+   Na raiz do repositório está disponivel um dump com dados de exemplos, este dump é carregado assim que o container sobe.
 
 ## Acessos
 

@@ -47,7 +47,7 @@ class ProductView(APIView):
         except Product.DoesNotExist:
             return Response({"detail": "Produto não encontrado."}, status=status.HTTP_404_NOT_FOUND)
         
-    
+    @swagger_auto_schema(request_body=ProductSerializer)
     def put(self, request, product_id=None):
         if product_id is None:
             return Response({"detail": "O parâmetro 'product_id' é obrigatório."}, status=status.HTTP_400_BAD_REQUEST)

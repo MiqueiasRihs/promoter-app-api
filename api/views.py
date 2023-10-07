@@ -8,8 +8,12 @@ from .serializer import BaseProductSerializer, ProductSerializer, PriceVariation
 
 from PromoterApp.models import Product
 
+from rest_framework.parsers import MultiPartParser
+
 
 class ProductView(APIView):
+    parser_classes = [MultiPartParser]
+
     @swagger_auto_schema(request_body=ProductSerializer)
     def post(self, request, *args, **kwargs):
         product_serializer = ProductSerializer(data=request.data)

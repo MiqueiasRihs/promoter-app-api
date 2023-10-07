@@ -2,6 +2,8 @@ from rest_framework import serializers
 
 from PromoterApp.models import Product, PriceVariation
 
+from PromoterApp.utils import to_money
+
 class ProductSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=350)
     ean = serializers.CharField(max_length=13)
@@ -62,12 +64,12 @@ class PriceVariationSerializer(serializers.Serializer):
     def price_validation(self, product, price):
         if float(price) < float(product.min_price):
             raise serializers.ValidationError({
-                "detail": f"O preço do produto não pode ser menor que {product.min_price}"
+                "detail": f"O preço do produto não pode ser menor que {to_money(product.min_price)}"
             })
     
         elif float(price) > float(product.max_price):
             raise serializers.ValidationError({
-                "detail": f"O preço do produto não pode ser maior que {product.max_price}"
+                "detail": f"O preço do produto não pode ser maior que {to_money(product.max_price)}"
             })
 
         return True

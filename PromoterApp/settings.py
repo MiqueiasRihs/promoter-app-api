@@ -83,7 +83,11 @@ DATABASES = {
         'PASSWORD': 'postgres',
         'HOST': 'postgres-db',
         'PORT': '5432',
-    }
+    },
+    'test': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
+    },
 }
 
 APPEND_SLASH=False

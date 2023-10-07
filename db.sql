@@ -1,14 +1,14 @@
-INSERT INTO "PromoterApp_product" (name, ean, min_price, max_price, created_at, image)VALUES
+INSERT INTO "PromoterApp_product" (name, ean, min_price, max_price, created_at, image) VALUES
     ('Produto A', '1234567890123', 10.00, 20.00, '2023-10-06 16:14:21.108 -0300', 'produtos/cafeteira.jpeg'),
     ('Produto B', '9876543210987', 15.00, 25.00, '2023-10-06 16:14:21.108 -0300', 'produtos/caixa_de_som.jpeg'),
-    ('Produto C', '5432167890123', 8.00, 18.00, '2023-10-06 16:14:21.108 -0300', 'produtos/camera.jpg'),
-    ('Produto D', '1234567890124', 9.00, 19.00, '2023-10-06 16:14:21.108 -0300', 'produtos/computador.jpeg'),
+    ('Produto C', '5432167890123', 8.00, 24.00, '2023-10-06 16:14:21.108 -0300', 'produtos/camera.jpg'),
+    ('Produto D', '1234567890124', 9.00, 30.00, '2023-10-06 16:14:21.108 -0300', 'produtos/computador.jpeg'),
     ('Produto E', '9876543210986', 14.00, 24.00, '2023-10-06 16:14:21.108 -0300', 'produtos/drone.jpg'),
-    ('Produto F', '5432167890125', 12.00, 22.00, '2023-10-06 16:14:21.108 -0300', 'produtos/impressora.jpeg'),
+    ('Produto F', '5432167890125', 12.00, 25.00, '2023-10-06 16:14:21.108 -0300', 'produtos/impressora.jpeg'),
     ('Produto G', '1234567890126', 16.00, 26.00, '2023-10-06 16:14:21.108 -0300', 'produtos/oculos.jpg'),
-    ('Produto H', '9876543210985', 13.00, 23.00, '2023-10-06 16:14:21.108 -0300', 'produtos/relogio.jpg'),
-    ('Produto I', '5432167890127', 11.00, 21.00, '2023-10-06 16:14:21.108 -0300', 'produtos/robo.jpeg'),
-    ('Produto J', '1234567890128', 7.00, 17.00, '2023-10-06 16:14:21.108 -0300', 'produtos/tablet.jpg');
+    ('Produto H', '9876543210985', 13.00, 28.00, '2023-10-06 16:14:21.108 -0300', 'produtos/relogio.jpg'),
+    ('Produto I', '5432167890127', 20.00, 36.00, '2023-10-06 16:14:21.108 -0300', 'produtos/robo.jpeg'),
+    ('Produto J', '1234567890128', 30.00, 45.00, '2023-10-06 16:14:21.108 -0300', 'produtos/tablet.jpg');
 
 INSERT INTO "PromoterApp_pricevariation" (product_id, price, created_at) VALUES
     (1, 12.50, '2023-10-01 10:14:21.108 -0300'),
@@ -59,7 +59,7 @@ INSERT INTO "PromoterApp_pricevariation" (product_id, price, created_at) VALUES
     (8, 23.00, '2023-11-15 07:14:21.108 -0300'),
     (8, 27.00, '2023-11-16 08:14:21.108 -0300'),
     (8, 27.50, '2023-11-17 09:14:21.108 -0300'),
-    (8, 28.50, '2023-11-18 10:14:21.108 -0300'),
+    (8, 28.00, '2023-11-18 10:14:21.108 -0300'),
     (9, 29.00, '2023-11-19 11:14:21.108 -0300'),
     (9, 30.00, '2023-11-20 12:14:21.108 -0300'),
     (9, 30.50, '2023-11-21 13:14:21.108 -0300'),

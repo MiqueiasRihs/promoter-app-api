@@ -5,7 +5,7 @@ max_attempts=10
 
 while [ $attempts -lt $max_attempts ]; do
     if pg_isready -h tradex_postgres -p 5432 -U postgres -d tradex_promoter; then
-        echo "\n================ Banco de dados está pronto, executando migrações... ================\n"
+        echo "\n================ Banco de dados está pronto, executando migrações... ================ \n"
         python3 manage.py makemigrations
         python3 manage.py migrate
         python3 manage.py createcachetable

@@ -32,7 +32,7 @@ Siga estas etapas para configurar e executar o projeto:
 2. Inicialize os contêineres do Docker:
 
    ```bash
-   docker-compose up
+   docker-compose up --build
    ```
 
    Isso irá iniciar a aplicação Django e o banco de dados PostgreSQL.  
